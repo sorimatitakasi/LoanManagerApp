@@ -46,4 +46,13 @@ public class Service {
 		}
 		return true;
 	}
+
+	public boolean deleteTask(int id) {
+		Task task = findById(id);
+		if (task == null) {
+			return false;
+		}
+		tasks.remove(task);
+		return true;
+	}
 }

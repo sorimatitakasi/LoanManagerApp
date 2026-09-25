@@ -35,6 +35,9 @@ public class Main {
 			case Menu.UPDATE:
 				update(inputUtil, service);
 				break;
+			case Menu.DELETE:
+				delete(inputUtil, service);
+				break;
 			default:
 				System.out.println("選択されたのは: " + choice + "（まだ機能は未実装です）");
 			}
@@ -80,6 +83,12 @@ public class Main {
 
 		boolean success = service.updateTask(id, additionalPaidAmount, newDueDate);
 		System.out.println(success ? "更新しました。" : "更新に失敗しました。");
+	}
+
+	private static void delete(InputUtil inputUtil, Service service) {
+		int id = inputUtil.readInt("削除したいID：");
+		boolean success = service.deleteTask(id);
+		System.out.println(success ? "削除しました。" : "※ そのIDのデータは見つかりませんでした。");
 	}
 
 }
