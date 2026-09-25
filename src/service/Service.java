@@ -17,4 +17,8 @@ public class Service {
 		nextId++;
 		return task;
 	}
+
+	public List<Task> showTasks() {
+		return tasks;
+	}
 }

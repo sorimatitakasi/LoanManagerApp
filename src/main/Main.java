@@ -1,6 +1,7 @@
 package main;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 import constant.Menu;
@@ -28,6 +29,9 @@ public class Main {
 				running = false;
 				System.out.println("終了します。");
 				break;
+			case Menu.READ:
+				read(service);
+				break;
 			default:
 				System.out.println("選択されたのは: " + choice + "（まだ機能は未実装です）");
 			}
@@ -45,6 +49,18 @@ public class Main {
 
 		Task task = service.addTask(title, lendDate, lendAmount, dueDate);
 		System.out.println("登録しました -> " + task);
+	}
+
+	private static void read(Service service) {
+		List<Task> tasks = service.showTasks();
+		if (tasks.isEmpty()) {
+			System.out.println("まだ記録がありません。");
+			return;
+		}
+		System.out.println("--- 一覧 ---");
+		for (Task task : tasks) {
+			System.out.println(task);
+		}
 	}
 
 }
