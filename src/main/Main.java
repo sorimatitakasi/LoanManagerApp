@@ -32,6 +32,9 @@ public class Main {
 			case Menu.READ:
 				read(service);
 				break;
+			case Menu.UPDATE:
+				update(inputUtil, service);
+				break;
 			default:
 				System.out.println("選択されたのは: " + choice + "（まだ機能は未実装です）");
 			}
@@ -61,6 +64,22 @@ public class Main {
 		for (Task task : tasks) {
 			System.out.println(task);
 		}
+	}
+
+	private static void update(InputUtil inputUtil, Service service) {
+		int id = inputUtil.readInt("更新したいID：");
+		Task existing = service.findById(id);
+		if (existing == null) {
+			System.out.println("※ そのIDのデータは見つかりませんでした。");
+			return;
+		}
+		System.out.println("現在の内容: " + existing);
+
+		int additionalPaidAmount = inputUtil.readInt("今回の回収金額：");
+		LocalDate newDueDate = inputUtil.readDate("新しい返済予定日（例: 2026-12-31）：");
+
+		boolean success = service.updateTask(id, additionalPaidAmount, newDueDate);
+		System.out.println(success ? "更新しました。" : "更新に失敗しました。");
 	}
 
 }

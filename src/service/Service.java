@@ -21,4 +21,29 @@ public class Service {
 	public List<Task> showTasks() {
 		return tasks;
 	}
+
+	public Task findById(int id) {
+		for (Task task : tasks) {
+			if (task.getId() == id) {
+				return task;
+			}
+		}
+		return null;
+	}
+
+	public boolean updateTask(int id, int additionalPaidAmount, LocalDate newDueDate) {
+		Task task = findById(id);
+		if (task == null) {
+			return false;
+		}
+
+		int newPaidAmount = task.getPaidAmount() + additionalPaidAmount;
+		task.setPaidAmount(newPaidAmount);
+		task.setDueDate(newDueDate);
+
+		if (newPaidAmount >= task.getLendAmount()) {
+			task.setPaidOff(true);
+		}
+		return true;
+	}
 }
